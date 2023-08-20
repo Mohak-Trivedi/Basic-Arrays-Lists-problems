@@ -1,4 +1,4 @@
-// problem: https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
+// Problem: https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
 import java.io.*;
 import java.math.*;
