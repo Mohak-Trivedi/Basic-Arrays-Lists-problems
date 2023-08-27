@@ -23,26 +23,59 @@ class Result {
      * 2. INTEGER d
      * 3. INTEGER m
      */
+    // Approach: O(n*m) : However, passes all the test cases
+    // public static int birthday(List<Integer> s, int d, int m) {
+    // // Write your code here
+    // int ans = 0;
+    // for (int start = 0; start <= s.size() - m; start++) {
+    // int end = start + m - 1;
+    // int sum = 0;
+    // for (int i = start; i <= end; i++) {
+    // sum += s.get(i);
+    // }
+    // if (sum == d) {
+    // ans++;
+    // }
+    // }
+    // return ans;
+    // }
 
+    // Alternate approach: O(n)
     public static int birthday(List<Integer> s, int d, int m) {
         // Write your code here
-        int ans = 0;
-        for (int start = 0; start <= s.size() - m; start++) {
-            int end = start + m - 1;
-            int sum = 0;
-            for (int i = start; i <= end; i++) {
-                sum += s.get(i);
+        int ways = 0;
+        int i = 0;
+        int sum = 0;
+        int count = 0;
+
+        while (i < s.size()) {
+            count++;
+            sum += s.get(i);
+
+            if (count == m && sum == d) {
+                ways++;
+                sum -= s.get((i - count) + 1);
+                count--;
+                // or:
+                // count--;
+                // sum = sum - s.get(i - count);
+            } else if (count == m) {
+                sum -= s.get((i - count) + 1);
+                count--;
+                // or:
+                // count--;
+                // sum = sum - s.get(i - count);
             }
-            if (sum == d) {
-                ans++;
-            }
+            i++;
         }
-        return ans;
+
+        return ways;
     }
 
 }
 
-public class Solution {
+// Use class name Solution in HackerRank.
+public class SubarrayDivisions {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
