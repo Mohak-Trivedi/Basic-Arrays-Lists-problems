@@ -23,18 +23,25 @@ class Result {
      * 2. INTEGER_ARRAY b
      */
 
-    // Approach : w/o using Collections.sort()
     public static int getTotalX(List<Integer> a, List<Integer> b) {
         // Write your code here
-        // Get the range of possible Between Numbers: [Largest in a[], Smallest in b[]]
-        int high = Integer.MAX_VALUE;
-        int low = Integer.MIN_VALUE;
-        for (int i = 0; i < a.size(); i++) {
-            low = Math.max(low, a.get(i));
-        }
-        for (int i = 0; i < b.size(); i++) {
-            high = Math.min(high, b.get(i));
-        }
+        // w/o sort: Get the range of possible Between Numbers: [Largest in a[],
+        // Smallest in b[]]
+        // int high = Integer.MAX_VALUE;
+        // int low = Integer.MIN_VALUE;
+        // for (int i = 0; i < a.size(); i++) {
+        // low = Math.max(low, a.get(i));
+        // }
+        // for (int i = 0; i < b.size(); i++) {
+        // high = Math.min(high, b.get(i));
+        // }
+
+        // w/ sort: Get the range of possible Between Numbers: [Largest in a[], Smallest
+        // in b[]]
+        Collections.sort(a);
+        Collections.sort(b);
+        int low = a.get(a.size() - 1);
+        int high = b.get(0);
 
         // Find total number of Between Numbers out of the entire range.
         int totalNumBetween = 0;
@@ -43,7 +50,7 @@ class Result {
             boolean allAFactorNum = true;
             for (int i = 0; i < a.size(); i++) {
                 if (num % a.get(i) != 0) {
-                    allAFact = false;
+                    allAFactorNum = false;
                     break;
                 }
             }
@@ -58,16 +65,28 @@ class Result {
             }
 
             // if yes for both, then num is a Between Number
-            if (allAFact == true && numFactAllB == true) {
+            if (allAFactorNum == true && numFactAllB == true) {
                 totalNumBetween++;
             }
         }
 
         return totalNumBetween;
     }
+
+    // Approach: Using sorting
+    // public static int getTotalX(List<Integer> a, List<Integer> b) {
+    // // Get the range of possible Between Numbers: [Largest in a[], Smallest in
+    // b[]]
+    // Collections.sort(a);
+    // Collections.sort(b);
+    // int low = a.get(a.size() - 1);
+    // int high = b.get(0);
+
+    // }
 }
 
-public class Solution {
+// Use class name Solution in HackerRank
+public class BetweenTwoSets {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
