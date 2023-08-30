@@ -23,6 +23,10 @@ class Result {
      * 2. INTEGER_ARRAY b
      */
 
+    // T.C.: O(n) + O(r * n) w/o sorting, where r is number of numbers in the
+    // possible Between numbers range.
+    // T.C.: O(nlogn) + O(r * n) w/ sorting
+    // S.C.: O(1)
     public static int getTotalX(List<Integer> a, List<Integer> b) {
         // Write your code here
         // w/o sort: Get the range of possible Between Numbers: [Largest in a[],
