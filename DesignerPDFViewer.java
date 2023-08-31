@@ -27,7 +27,7 @@ class Result {
         int highlightWidth = word.length();
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
-            int idx = Math.abs('a' - ch);
+            int idx = ch - 'a';
             int currCharHeight = h.get(idx);
             highlightHeight = Math.max(highlightHeight, currCharHeight);
         }
