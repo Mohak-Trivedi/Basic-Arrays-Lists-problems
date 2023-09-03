@@ -24,20 +24,55 @@ class Result {
     // failing for :
     // 6
     // 5 4 4 2 2 8
+    // public static List<Integer> cutTheSticks(List<Integer> arr) {
+    // // Write your code here
+    // ArrayList<Integer> sticksRemaining = new ArrayList<Integer>();
+
+    // while (arr.size() > 0) {
+    // // Store current number of sticks remaining
+    // sticksRemaining.add(arr.size());
+
+    // // Find smallest stick in current iteration
+    // int smallest = Integer.MAX_VALUE;
+    // for (int i = 0; i < arr.size(); i++) {
+    // int currStick = arr.get(i);
+    // smallest = Math.min(smallest, currStick);
+    // }
+
+    // for (int i = 0; i < arr.size(); i++) {
+    // int currStick = arr.get(i);
+
+    // // cut the current stick
+    // currStick -= smallest;
+    // arr.set(i, currStick);
+
+    // // discard the current smallest stick i.e. stick which got totally cut (0)
+    // after
+    // // cutting
+    // if (currStick == 0) {
+    // arr.remove(i);
+
+    // i--; // to avoid skipping next stick
+    // }
+    // }
+    // }
+
+    // return sticksRemaining;
+    // }
+
+    // Alternate approach: using sort() : so that we get smallest stick ready-made
+    // in each iteration.
     public static List<Integer> cutTheSticks(List<Integer> arr) {
         // Write your code here
         ArrayList<Integer> sticksRemaining = new ArrayList<Integer>();
+
+        Collections.sort(arr);
 
         while (arr.size() > 0) {
             // Store current number of sticks remaining
             sticksRemaining.add(arr.size());
 
-            // Find smallest stick in current iteration
-            int smallest = Integer.MAX_VALUE;
-            for (int i = 0; i < arr.size(); i++) {
-                int currStick = arr.get(i);
-                smallest = Math.min(smallest, currStick);
-            }
+            int smallest = arr.get(0); // due to sort, smallest is at index 0
 
             for (int i = 0; i < arr.size(); i++) {
                 int currStick = arr.get(i);
@@ -55,13 +90,9 @@ class Result {
                 }
             }
         }
-
-        return sticksRemaining;
     }
 
-}
-
-// Use class name Solution in HackerRank
+    // Use class name Solution in HackerRank
 public class CutTheSticks {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
