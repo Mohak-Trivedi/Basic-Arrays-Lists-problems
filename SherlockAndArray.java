@@ -21,28 +21,46 @@ class Result {
      * The function accepts INTEGER_ARRAY arr as parameter.
      */
 
+    // Approach: T.C.: O(3n), S.C.: O(2n)
+    // public static String balancedSums(List<Integer> arr) {
+    // // Write your code here
+    // int[] left = new int[arr.size()];
+    // left[0] = 0;
+    // for (int i = 1; i < left.length; i++) {
+    // left[i] = left[i - 1] + arr.get(i - 1);
+    // }
+
+    // int[] right = new int[arr.size()];
+    // right[right.length - 1] = 0;
+    // for (int i = right.length - 2; i >= 0; i--) {
+    // right[i] = right[i + 1] + arr.get(i + 1);
+    // }
+
+    // for (int i = 0; i < left.length; i++) {
+    // if (left[i] - right[i] == 0) {
+    // return "YES";
+    // }
+    // }
+    // return "NO";
+    // }
+
+    // Optimized approach: T.C.: O(2n), S.C.: O(1)
     public static String balancedSums(List<Integer> arr) {
-        // Write your code here
-        int[] left = new int[arr.size()];
-        left[0] = 0;
-        for (int i = 1; i < left.length; i++) {
-            left[i] = left[i - 1] + arr.get(i - 1);
+        int totalSum = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            totalSum += arr.get(i);
         }
 
-        int[] right = new int[arr.size()];
-        right[right.length - 1] = 0;
-        for (int i = right.length - 2; i >= 0; i--) {
-            right[i] = right[i + 1] + arr.get(i + 1);
-        }
-
-        for (int i = 0; i < left.length; i++) {
-            if (left[i] - right[i] == 0) {
+        int leftSum = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            totalSum -= arr.get(i); // at each index i, totalSum acts as right sum
+            if (leftSum == totalSum) {
                 return "YES";
             }
+            leftSum += arr.get(i); // leftSum for next i
         }
         return "NO";
     }
-
 }
 
 // Use class name Solution in Hackerrank
