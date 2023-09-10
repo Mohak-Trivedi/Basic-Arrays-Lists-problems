@@ -21,34 +21,72 @@ class Result {
      * The function accepts STRING_ARRAY grid as parameter.
      */
 
-    // Approach: Failing 17/23 test cases. T.C.: O(n^2)
+    // Approach: Failing 17/23 test cases because did not cover scenario for >1 and
+    // 0 cavities in a single row. T.C.: O(n^2)
+    // public static List<String> cavityMap(List<String> grid) {
+    // // Write your code here
+    // List<String> ans = new ArrayList<>();
+    // String topBorder = grid.get(0);
+    // ans.add(topBorder);
+
+    // for (int row = 1; row < grid.size() - 1; row++) { // ignoring top and bottom
+    // borders
+    // String currRow = grid.get(row);
+    // for (int col = 1; col < currRow.length() - 1; col++) { // ignoring left and
+    // right borders
+    // int cell = currRow.charAt(col) - '0';
+    // int rightCell = currRow.charAt(col + 1) - '0';
+    // int leftCell = currRow.charAt(col - 1) - '0';
+    // int topCell = grid.get(row - 1).charAt(col) - '0';
+    // int bottomCell = grid.get(row + 1).charAt(col) - '0';
+
+    // if ((cell > rightCell) && (cell > leftCell) && (cell > topCell) && (cell >
+    // bottomCell)) {
+    // String cavityRow = currRow.substring(0, col) + 'X' + currRow.substring(col +
+    // 1);
+    // ans.add(cavityRow);
+    // }
+    // }
+    // }
+
+    // String bottomBorder = grid.get(grid.size() - 1);
+    // ans.add(bottomBorder);
+    // return ans;
+    // }
+
+    // Alternate approach: Don't think in terms of Rows and Columns, instead in
+    // terms of Strings and Characters. T.C.: O(n^2)
     public static List<String> cavityMap(List<String> grid) {
-        // Write your code here
         List<String> ans = new ArrayList<>();
-        String topBorder = grid.get(0);
-        ans.add(topBorder);
+        for (int row = 0; row < grid.size(); row++) {
+            String str = grid.get(row);
+            if (row == 0 || row == grid.size() - 1) {
+                ans.add(str);
+            } else {
+                String potentialCavityStr = "";
+                for (int j = 0; j < str.length(); j++) {
+                    char ch = str.charAt(j);
+                    if (j == 0 || j == str.length() - 1) {
+                        potentialCavityStr += ch;
+                    } else {
+                        int cell = ch - '0';
+                        int rightCell = str.charAt(j + 1);
+                        int leftCell = str.charAt(j - 1);
+                        int topCell = grid.get(row - 1).charAt(j);
+                        int bottomCell = grid.get(row + 1).charAt(j);
 
-        for (int row = 1; row < grid.size() - 1; row++) { // ignoring top and bottom borders
-            String currRow = grid.get(row);
-            for (int col = 1; col < currRow.length() - 1; col++) { // ignoring left and right borders
-                int cell = currRow.charAt(col) - '0';
-                int rightCell = currRow.charAt(col + 1) - '0';
-                int leftCell = currRow.charAt(col - 1) - '0';
-                int topCell = grid.get(row - 1).charAt(col) - '0';
-                int bottomCell = grid.get(row + 1).charAt(col) - '0';
-
-                if ((cell > rightCell) && (cell > leftCell) && (cell > topCell) && (cell > bottomCell)) {
-                    String cavityRow = currRow.substring(0, col) + 'X' + currRow.substring(col + 1);
-                    ans.add(cavityRow);
+                        if ((cell > rightCell) && (cell > bottomCell) && (cell > leftCell) && (cell > topCell)) {
+                            potentialCavityStr += 'X';
+                        } else {
+                            potentialCavityStr += ch;
+                        }
+                    }
                 }
+                ans.add(potentialCavityStr);
             }
         }
-
-        String bottomBorder = grid.get(grid.size() - 1);
-        ans.add(bottomBorder);
         return ans;
     }
-
 }
 
 // Use class name Solution in HackerRank
